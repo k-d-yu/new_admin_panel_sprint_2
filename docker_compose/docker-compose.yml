@@ -6,16 +6,14 @@ services:
     build: .
     expose:
       - '8000'
-    ports:
-      - '8000:8000'
     container_name: django
     env_file:
       - ./app/config/.env
+    depends_on:
+      - postgres
 
   postgres:
-    image: postgres:13
-    ports:
-      - '5432:5432'
+    image: postgres:15
     container_name: postgres
     env_file:
       - ./app/config/.env

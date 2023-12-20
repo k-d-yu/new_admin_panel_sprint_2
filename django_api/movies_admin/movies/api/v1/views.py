@@ -12,8 +12,7 @@ class MoviesApiMixin:
     http_method_names = ['get']
 
     def get_queryset(self):
-        queryset = Filmwork.objects.prefetch_related('genres', 'persons').values('id', 'title', 'description',
-                                                                                 'creation_date', 'rating', 'type')
+        queryset = Filmwork.objects.values('id', 'title', 'description', 'creation_date', 'rating', 'type')
 
         genres_list = ArrayAgg('genres__name', distinct=True)
         actors_list = ArrayAgg('persons__full_name', distinct=True, filter=Q(personfilmwork__role='actor'))
